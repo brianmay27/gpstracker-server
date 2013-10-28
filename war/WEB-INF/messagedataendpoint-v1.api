@@ -1,0 +1,223 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://gpstracker-bmac.appspot.com/_ah/api",
+  "name" : "messagedataendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://gpstracker-bmac.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "vt.edu",
+  "ownerName" : "vt.edu",
+  "packagePath" : "bmac.gpstracker",
+  "methods" : {
+    "messagedataendpoint.insertMessageData" : {
+      "path" : "messagedata",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.MessageDataEndpoint.insertMessageData",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "messagedataendpoint.getMessageData" : {
+      "path" : "messagedata/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.MessageDataEndpoint.getMessageData",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "messagedataendpoint.removeMessageData" : {
+      "path" : "messagedata/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.MessageDataEndpoint.removeMessageData",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "messagedataendpoint.updateMessageData" : {
+      "path" : "messagedata",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.MessageDataEndpoint.updateMessageData",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "messagedataendpoint.listMessageData" : {
+      "path" : "messagedata",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.MessageDataEndpoint.listMessageData",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "MessageData" : {
+        "id" : "MessageData",
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "$ref" : "Key"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      },
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "namespace" : {
+            "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "CollectionResponse_MessageData" : {
+        "id" : "CollectionResponse_MessageData",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "MessageData"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "edu.vt.bmac.gpstracker.MessageDataEndpoint.insertMessageData" : {
+        "request" : {
+          "$ref" : "MessageData"
+        },
+        "response" : {
+          "$ref" : "MessageData"
+        }
+      },
+      "edu.vt.bmac.gpstracker.MessageDataEndpoint.getMessageData" : {
+        "response" : {
+          "$ref" : "MessageData"
+        }
+      },
+      "edu.vt.bmac.gpstracker.MessageDataEndpoint.removeMessageData" : {
+      },
+      "edu.vt.bmac.gpstracker.MessageDataEndpoint.updateMessageData" : {
+        "request" : {
+          "$ref" : "MessageData"
+        },
+        "response" : {
+          "$ref" : "MessageData"
+        }
+      },
+      "edu.vt.bmac.gpstracker.MessageDataEndpoint.listMessageData" : {
+        "response" : {
+          "$ref" : "CollectionResponse_MessageData"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://gpstracker-bmac.appspot.com/_ah/api",
+  "name" : "friendendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://gpstracker-bmac.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "vt.edu",
+  "ownerName" : "vt.edu",
+  "packagePath" : "bmac.gpstracker",
+  "methods" : {
+    "friendendpoint.getFriend" : {
+      "path" : "friend/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.FriendEndpoint.getFriend",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "friendendpoint.listFriend" : {
+      "path" : "friend",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.FriendEndpoint.listFriend",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "friendendpoint.updateFriend" : {
+      "path" : "friend",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.FriendEndpoint.updateFriend",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "friendendpoint.insertFriend" : {
+      "path" : "friend",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.FriendEndpoint.insertFriend",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "friendendpoint.removeFriend" : {
+      "path" : "friend/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.FriendEndpoint.removeFriend",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Friend" : {
+        "id" : "Friend",
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CollectionResponse_Friend" : {
+        "id" : "CollectionResponse_Friend",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Friend"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "edu.vt.bmac.gpstracker.FriendEndpoint.getFriend" : {
+        "response" : {
+          "$ref" : "Friend"
+        }
+      },
+      "edu.vt.bmac.gpstracker.FriendEndpoint.listFriend" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Friend"
+        }
+      },
+      "edu.vt.bmac.gpstracker.FriendEndpoint.updateFriend" : {
+        "request" : {
+          "$ref" : "Friend"
+        },
+        "response" : {
+          "$ref" : "Friend"
+        }
+      },
+      "edu.vt.bmac.gpstracker.FriendEndpoint.insertFriend" : {
+        "request" : {
+          "$ref" : "Friend"
+        },
+        "response" : {
+          "$ref" : "Friend"
+        }
+      },
+      "edu.vt.bmac.gpstracker.FriendEndpoint.removeFriend" : {
+      }
+    }
+  }
+}

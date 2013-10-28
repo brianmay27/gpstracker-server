@@ -1,0 +1,246 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://gpstracker-bmac.appspot.com/_ah/api",
+  "name" : "trailendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://gpstracker-bmac.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "vt.edu",
+  "ownerName" : "vt.edu",
+  "packagePath" : "bmac.gpstracker",
+  "methods" : {
+    "trailendpoint.updateTrail" : {
+      "path" : "trail",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.updateTrail",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "trailendpoint.removeTrail" : {
+      "path" : "trail/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.removeTrail",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "trailendpoint.insertTrail" : {
+      "path" : "trail",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.insertTrail",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "trailendpoint.listTrail" : {
+      "path" : "trail",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.listTrail",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "trailendpoint.getTrail" : {
+      "path" : "trail/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.getTrail",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Trail" : {
+        "id" : "Trail",
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer"
+          },
+          "hash" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "plots" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Node"
+            }
+          },
+          "time" : {
+            "type" : "string"
+          },
+          "dist" : {
+            "type" : "string"
+          },
+          "alt" : {
+            "type" : "string"
+          },
+          "speed" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Node" : {
+        "id" : "Node",
+        "type" : "object",
+        "properties" : {
+          "lat" : {
+            "type" : "number"
+          },
+          "lon" : {
+            "type" : "number"
+          },
+          "alt" : {
+            "type" : "number"
+          },
+          "accuracy" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "satalites" : {
+            "type" : "integer"
+          },
+          "speed" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "time" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      },
+      "CollectionResponse_Trail" : {
+        "id" : "CollectionResponse_Trail",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Trail"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "edu.vt.bmac.gpstracker.TrailEndpoint.updateTrail" : {
+        "request" : {
+          "$ref" : "Trail"
+        },
+        "response" : {
+          "$ref" : "Trail"
+        }
+      },
+      "edu.vt.bmac.gpstracker.TrailEndpoint.removeTrail" : {
+      },
+      "edu.vt.bmac.gpstracker.TrailEndpoint.insertTrail" : {
+        "request" : {
+          "$ref" : "Trail"
+        },
+        "response" : {
+          "$ref" : "Trail"
+        }
+      },
+      "edu.vt.bmac.gpstracker.TrailEndpoint.listTrail" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Trail"
+        }
+      },
+      "edu.vt.bmac.gpstracker.TrailEndpoint.getTrail" : {
+        "response" : {
+          "$ref" : "Trail"
+        }
+      }
+    }
+  }
+}

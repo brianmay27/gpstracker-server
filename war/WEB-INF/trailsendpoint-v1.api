@@ -1,0 +1,261 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://gpstracker-bmac.appspot.com/_ah/api",
+  "name" : "trailsendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://gpstracker-bmac.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "vt.edu",
+  "ownerName" : "vt.edu",
+  "packagePath" : "bmac.gpstracker",
+  "methods" : {
+    "trailsendpoint.listTrails" : {
+      "path" : "trails",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailsEndpoint.listTrails",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "trailsendpoint.insertTrails" : {
+      "path" : "trails",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailsEndpoint.insertTrails",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "trailsendpoint.updateTrails" : {
+      "path" : "trails",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailsEndpoint.updateTrails",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "trailsendpoint.removeTrails" : {
+      "path" : "trails/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailsEndpoint.removeTrails",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "trailsendpoint.getTrails" : {
+      "path" : "trails/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailsEndpoint.getTrails",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "CollectionResponse_Trails" : {
+        "id" : "CollectionResponse_Trails",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Trails"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Trails" : {
+        "id" : "Trails",
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "trails" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Trail"
+            }
+          }
+        }
+      },
+      "Trail" : {
+        "id" : "Trail",
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer"
+          },
+          "hash" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "plots" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Node"
+            }
+          },
+          "time" : {
+            "type" : "string"
+          },
+          "dist" : {
+            "type" : "string"
+          },
+          "alt" : {
+            "type" : "string"
+          },
+          "speed" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Node" : {
+        "id" : "Node",
+        "type" : "object",
+        "properties" : {
+          "lat" : {
+            "type" : "number"
+          },
+          "lon" : {
+            "type" : "number"
+          },
+          "alt" : {
+            "type" : "number"
+          },
+          "accuracy" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "satalites" : {
+            "type" : "integer"
+          },
+          "speed" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "time" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "edu.vt.bmac.gpstracker.TrailsEndpoint.listTrails" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Trails"
+        }
+      },
+      "edu.vt.bmac.gpstracker.TrailsEndpoint.insertTrails" : {
+        "request" : {
+          "$ref" : "Trails"
+        },
+        "response" : {
+          "$ref" : "Trails"
+        }
+      },
+      "edu.vt.bmac.gpstracker.TrailsEndpoint.updateTrails" : {
+        "request" : {
+          "$ref" : "Trails"
+        },
+        "response" : {
+          "$ref" : "Trails"
+        }
+      },
+      "edu.vt.bmac.gpstracker.TrailsEndpoint.removeTrails" : {
+      },
+      "edu.vt.bmac.gpstracker.TrailsEndpoint.getTrails" : {
+        "response" : {
+          "$ref" : "Trails"
+        }
+      }
+    }
+  }
+}
