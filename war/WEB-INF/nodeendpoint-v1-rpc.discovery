@@ -1,9 +1,9 @@
 {
- "kind": "discovery#restDescription",
- "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/0ND19IxkQjzGDjm_xvDxjDeOCeQ\"",
+ "kind": "discovery#rpcDescription",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/e2Rj_ExC1M7AJuKsc5MScaW1mSI\"",
  "discoveryVersion": "v1",
- "id": "trailsendpoint:v1",
- "name": "trailsendpoint",
+ "id": "nodeendpoint:v1",
+ "name": "nodeendpoint",
  "version": "v1",
  "description": "This is an API",
  "ownerDomain": "vt.edu",
@@ -13,12 +13,10 @@
   "x16": "http://www.google.com/images/icons/product/search-16.gif",
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
- "protocol": "rest",
- "baseUrl": "https://gpstracker-bmac.appspot.com/_ah/api/trailsendpoint/v1/",
- "basePath": "/_ah/api/trailsendpoint/v1/",
+ "protocol": "rpc",
  "rootUrl": "https://gpstracker-bmac.appspot.com/_ah/api/",
- "servicePath": "trailsendpoint/v1/",
- "batchPath": "batch",
+ "rpcUrl": "https://gpstracker-bmac.appspot.com/_ah/api/rpc",
+ "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {
    "type": "string",
@@ -74,14 +72,14 @@
   }
  },
  "schemas": {
-  "CollectionResponse_Trails": {
-   "id": "CollectionResponse_Trails",
+  "CollectionResponse_Node": {
+   "id": "CollectionResponse_Node",
    "type": "object",
    "properties": {
     "items": {
      "type": "array",
      "items": {
-      "$ref": "Trails"
+      "$ref": "Node"
      }
     },
     "nextPageToken": {
@@ -100,6 +98,10 @@
     "alt": {
      "type": "number",
      "format": "double"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
     },
     "lat": {
      "type": "number",
@@ -122,129 +124,72 @@
      "format": "int64"
     }
    }
-  },
-  "Trail": {
-   "id": "Trail",
-   "type": "object",
-   "properties": {
-    "alt": {
-     "type": "string"
-    },
-    "dist": {
-     "type": "string"
-    },
-    "hash": {
-     "type": "string",
-     "format": "int64"
-    },
-    "id": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "name": {
-     "type": "string"
-    },
-    "plots": {
-     "type": "array",
-     "items": {
-      "$ref": "Node"
-     }
-    },
-    "speed": {
-     "type": "string"
-    },
-    "time": {
-     "type": "string"
-    },
-    "username": {
-     "type": "string"
-    }
-   }
-  },
-  "Trails": {
-   "id": "Trails",
-   "type": "object",
-   "properties": {
-    "name": {
-     "type": "string"
-    },
-    "trails": {
-     "type": "array",
-     "items": {
-      "$ref": "Trail"
-     }
-    }
-   }
   }
  },
  "methods": {
-  "getTrails": {
-   "id": "trailsendpoint.getTrails",
-   "path": "trails/{id}",
-   "httpMethod": "GET",
+  "nodeendpoint.getNode": {
+   "id": "nodeendpoint.getNode",
+   "allowGet": true,
    "parameters": {
     "id": {
      "type": "string",
      "required": true,
-     "location": "path"
+     "format": "int64"
     }
    },
    "parameterOrder": [
     "id"
    ],
-   "response": {
-    "$ref": "Trails"
+   "returns": {
+    "$ref": "Node"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "insertTrails": {
-   "id": "trailsendpoint.insertTrails",
-   "path": "trails",
-   "httpMethod": "POST",
-   "request": {
-    "$ref": "Trails",
-    "parameterName": "resource"
+  "nodeendpoint.insertNode": {
+   "id": "nodeendpoint.insertNode",
+   "parameters": {
+    "resource": {
+     "$ref": "Node"
+    }
    },
-   "response": {
-    "$ref": "Trails"
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "Node"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "listTrails": {
-   "id": "trailsendpoint.listTrails",
-   "path": "trails",
-   "httpMethod": "GET",
+  "nodeendpoint.listNode": {
+   "id": "nodeendpoint.listNode",
+   "allowGet": true,
    "parameters": {
     "cursor": {
-     "type": "string",
-     "location": "query"
+     "type": "string"
     },
     "limit": {
      "type": "integer",
-     "format": "int32",
-     "location": "query"
+     "format": "int32"
     }
    },
-   "response": {
-    "$ref": "CollectionResponse_Trails"
+   "returns": {
+    "$ref": "CollectionResponse_Node"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "removeTrails": {
-   "id": "trailsendpoint.removeTrails",
-   "path": "trails/{id}",
-   "httpMethod": "DELETE",
+  "nodeendpoint.removeNode": {
+   "id": "nodeendpoint.removeNode",
    "parameters": {
     "id": {
      "type": "string",
      "required": true,
-     "location": "path"
+     "format": "int64"
     }
    },
    "parameterOrder": [
@@ -254,16 +199,18 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "updateTrails": {
-   "id": "trailsendpoint.updateTrails",
-   "path": "trails",
-   "httpMethod": "PUT",
-   "request": {
-    "$ref": "Trails",
-    "parameterName": "resource"
+  "nodeendpoint.updateNode": {
+   "id": "nodeendpoint.updateNode",
+   "parameters": {
+    "resource": {
+     "$ref": "Node"
+    }
    },
-   "response": {
-    "$ref": "Trails"
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "Node"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

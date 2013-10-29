@@ -1,22 +1,23 @@
 package edu.vt.bmac.gpstracker;
 
-import edu.vt.bmac.gpstracker.EMF;
+import edu.vt.bmac.gpstracker.PMF;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.datanucleus.query.JPACursorHelper;
+import com.google.appengine.datanucleus.query.JDOCursorHelper;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Nullable;
 import javax.inject.Named;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
-@Api(name = "trailsendpoint", namespace = @ApiNamespace(ownerDomain = "vt.edu", ownerName = "vt.edu", packagePath = "bmac.gpstracker"))
-public class TrailsEndpoint
+@Api(name = "nodeendpoint", namespace = @ApiNamespace(ownerDomain = "vt.edu", ownerName = "vt.edu", packagePath = "bmac.gpstracker"))
+public class NodeEndpoint
 {
 
     /**
@@ -27,40 +28,42 @@ public class TrailsEndpoint
      * persisted and a cursor to the next page.
      */
     @SuppressWarnings({ "unchecked", "unused" })
-    @ApiMethod(name = "listTrails")
-    public CollectionResponse<Trails> listTrails(
+    @ApiMethod(name = "listNode")
+    public CollectionResponse<Node> listNode(
         @Nullable @Named("cursor") String cursorString,
         @Nullable @Named("limit") Integer limit)
     {
 
-        EntityManager mgr = null;
+        PersistenceManager mgr = null;
         Cursor cursor = null;
-        List<Trails> execute = null;
+        List<Node> execute = null;
 
         try
         {
-            mgr = getEntityManager();
-            Query query = mgr.createQuery("select from Trails as Trails");
+            mgr = getPersistenceManager();
+            Query query = mgr.newQuery(Node.class);
             if (cursorString != null && cursorString != "")
             {
                 cursor = Cursor.fromWebSafeString(cursorString);
-                query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
+                HashMap<String, Object> extensionMap =
+                    new HashMap<String, Object>();
+                extensionMap.put(JDOCursorHelper.CURSOR_EXTENSION, cursor);
+                query.setExtensions(extensionMap);
             }
 
             if (limit != null)
             {
-                query.setFirstResult(0);
-                query.setMaxResults(limit);
+                query.setRange(0, limit);
             }
 
-            execute = (List<Trails>)query.getResultList();
-            cursor = JPACursorHelper.getCursor(execute);
+            execute = (List<Node>)query.execute();
+            cursor = JDOCursorHelper.getCursor(execute);
             if (cursor != null)
                 cursorString = cursor.toWebSafeString();
 
             // Tight loop for fetching all entities from datastore and accomodate
             // for lazy fetch.
-            for (Trails obj : execute)
+            for (Node obj : execute)
                 ;
         }
         finally
@@ -68,7 +71,7 @@ public class TrailsEndpoint
             mgr.close();
         }
 
-        return CollectionResponse.<Trails> builder().setItems(execute)
+        return CollectionResponse.<Node> builder().setItems(execute)
             .setNextPageToken(cursorString).build();
     }
 
@@ -79,20 +82,20 @@ public class TrailsEndpoint
      * @param id the primary key of the java bean.
      * @return The entity with primary key id.
      */
-    @ApiMethod(name = "getTrails")
-    public Trails getTrails(@Named("id") String id)
+    @ApiMethod(name = "getNode")
+    public Node getNode(@Named("id") Long id)
     {
-        EntityManager mgr = getEntityManager();
-        Trails trails = null;
+        PersistenceManager mgr = getPersistenceManager();
+        Node node = null;
         try
         {
-            trails = mgr.find(Trails.class, id);
+            node = mgr.getObjectById(Node.class, id);
         }
         finally
         {
             mgr.close();
         }
-        return trails;
+        return node;
     }
 
 
@@ -101,26 +104,26 @@ public class TrailsEndpoint
      * exists in the datastore, an exception is thrown.
      * It uses HTTP POST method.
      *
-     * @param trails the entity to be inserted.
+     * @param node the entity to be inserted.
      * @return The inserted entity.
      */
-    @ApiMethod(name = "insertTrails")
-    public Trails insertTrails(Trails trails)
+    @ApiMethod(name = "insertNode")
+    public Node insertNode(Node node)
     {
-        EntityManager mgr = getEntityManager();
+        PersistenceManager mgr = getPersistenceManager();
         try
         {
-            if (containsTrails(trails))
+            if (containsNode(node))
             {
                 throw new EntityExistsException("Object already exists");
             }
-            mgr.persist(trails);
+            mgr.makePersistent(node);
         }
         finally
         {
             mgr.close();
         }
-        return trails;
+        return node;
     }
 
 
@@ -129,26 +132,26 @@ public class TrailsEndpoint
      * exist in the datastore, an exception is thrown.
      * It uses HTTP PUT method.
      *
-     * @param trails the entity to be updated.
+     * @param node the entity to be updated.
      * @return The updated entity.
      */
-    @ApiMethod(name = "updateTrails")
-    public Trails updateTrails(Trails trails)
+    @ApiMethod(name = "updateNode")
+    public Node updateNode(Node node)
     {
-        EntityManager mgr = getEntityManager();
+        PersistenceManager mgr = getPersistenceManager();
         try
         {
-            if (!containsTrails(trails))
+            if (!containsNode(node))
             {
                 throw new EntityNotFoundException("Object does not exist");
             }
-            mgr.persist(trails);
+            mgr.makePersistent(node);
         }
         finally
         {
             mgr.close();
         }
-        return trails;
+        return node;
     }
 
 
@@ -158,14 +161,14 @@ public class TrailsEndpoint
      *
      * @param id the primary key of the entity to be deleted.
      */
-    @ApiMethod(name = "removeTrails")
-    public void removeTrails(@Named("id") String id)
+    @ApiMethod(name = "removeNode")
+    public void removeNode(@Named("id") Long id)
     {
-        EntityManager mgr = getEntityManager();
+        PersistenceManager mgr = getPersistenceManager();
         try
         {
-            Trails trails = mgr.find(Trails.class, id);
-            mgr.remove(trails);
+            Node node = mgr.getObjectById(Node.class, id);
+            mgr.deletePersistent(node);
         }
         finally
         {
@@ -174,17 +177,17 @@ public class TrailsEndpoint
     }
 
 
-    private boolean containsTrails(Trails trails)
+    private boolean containsNode(Node node)
     {
-        EntityManager mgr = getEntityManager();
+        PersistenceManager mgr = getPersistenceManager();
         boolean contains = true;
         try
         {
-            Trails item = mgr.find(Trails.class, trails.getName());
-            if (item == null)
-            {
-                contains = false;
-            }
+            mgr.getObjectById(Node.class, node.getId());
+        }
+        catch (javax.jdo.JDOObjectNotFoundException ex)
+        {
+            contains = false;
         }
         finally
         {
@@ -194,9 +197,9 @@ public class TrailsEndpoint
     }
 
 
-    private static EntityManager getEntityManager()
+    private static PersistenceManager getPersistenceManager()
     {
-        return EMF.get().createEntityManager();
+        return PMF.get().getPersistenceManager();
     }
 
 }

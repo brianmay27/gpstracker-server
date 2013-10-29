@@ -1,24 +1,19 @@
 package edu.vt.bmac.gpstracker;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
-import com.google.appengine.api.datastore.Key;
-import javax.jdo.annotations.PrimaryKey;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Element;
-import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.persistence.Embedded;
-import javax.persistence.ElementCollection;
-import java.util.List;
-import javax.persistence.Basic;
+import javax.jdo.annotations.PrimaryKey;
+import javax.jws.soap.InitParam;
+import com.google.appengine.datanucleus.annotations.Unowned;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.ArrayList;
+import javax.persistence.OneToMany;
 
 // -------------------------------------------------------------------------
 /**
@@ -29,40 +24,35 @@ import java.util.ArrayList;
  *  @author Brian
  *  @version Oct 25, 2013
  */
-@Entity
+//@Entity
+@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
 public class Trail implements Serializable
 {
     public Trail() {
 
     }
-    @Persistent
     private String username;
-    @Id
+
     private String name;
-/*    @PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;*/
     private int id;
+    @Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+    @PrimaryKey
     private Long hash;
-/*   @Persistent
-    @Element(dependent = "true")
-    @OneToMany(mappedBy = "trail" )*/
-    @Basic
+    //@Element(types = Node.class)
+//    @OneToMany( cascade = CascadeType.DETACH)
+    @Unowned
+    @Persistent
     private ArrayList<Node> plots;
-    @Persistent
     private String time;
-    @Persistent
     private String dist;
-    @Persistent
     private String alt;
-    @Persistent
     private String speed;
-/*    public void setKey(Key key) {
-        this.key = key;
-    }
-    public Key getKey() {
-        return key;
-    }*/
+//    public void setKey(Key key) {
+//        this.key = key;
+//    }
+//    public Key getKey() {
+//        return key;
+//    }
     public String getUsername()
     {
         return username;

@@ -2,7 +2,7 @@
   "extends" : "thirdParty.api",
   "abstract" : false,
   "root" : "https://gpstracker-bmac.appspot.com/_ah/api",
-  "name" : "trailendpoint",
+  "name" : "nodeendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "adapter" : {
@@ -27,14 +27,14 @@
   "ownerName" : "vt.edu",
   "packagePath" : "bmac.gpstracker",
   "methods" : {
-    "trailendpoint.updateTrail" : {
-      "path" : "trail",
+    "nodeendpoint.updateNode" : {
+      "path" : "node",
       "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.updateTrail",
+      "rosyMethod" : "edu.vt.bmac.gpstracker.NodeEndpoint.updateNode",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -43,14 +43,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "trailendpoint.removeTrail" : {
-      "path" : "trail/{id}",
+    "nodeendpoint.removeNode" : {
+      "path" : "node/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.removeTrail",
+      "rosyMethod" : "edu.vt.bmac.gpstracker.NodeEndpoint.removeNode",
       "request" : {
         "parameters" : {
           "id" : {
@@ -64,14 +64,14 @@
         "body" : "empty"
       }
     },
-    "trailendpoint.listTrail" : {
-      "path" : "trail",
+    "nodeendpoint.listNode" : {
+      "path" : "node",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.listTrail",
+      "rosyMethod" : "edu.vt.bmac.gpstracker.NodeEndpoint.listNode",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -89,14 +89,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "trailendpoint.insertTrail" : {
-      "path" : "trail",
+    "nodeendpoint.insertNode" : {
+      "path" : "node",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.insertTrail",
+      "rosyMethod" : "edu.vt.bmac.gpstracker.NodeEndpoint.insertNode",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -105,14 +105,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "trailendpoint.getTrail" : {
-      "path" : "trail/{id}",
+    "nodeendpoint.getNode" : {
+      "path" : "node/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "edu.vt.bmac.gpstracker.TrailEndpoint.getTrail",
+      "rosyMethod" : "edu.vt.bmac.gpstracker.NodeEndpoint.getNode",
       "request" : {
         "parameters" : {
           "id" : {
@@ -129,43 +129,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "Trail" : {
-        "id" : "Trail",
-        "type" : "object",
-        "properties" : {
-          "username" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "integer"
-          },
-          "hash" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "plots" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Node"
-            }
-          },
-          "time" : {
-            "type" : "string"
-          },
-          "dist" : {
-            "type" : "string"
-          },
-          "alt" : {
-            "type" : "string"
-          },
-          "speed" : {
-            "type" : "string"
-          }
-        }
-      },
       "Node" : {
         "id" : "Node",
         "type" : "object",
@@ -200,14 +163,14 @@
           }
         }
       },
-      "CollectionResponse_Trail" : {
-        "id" : "CollectionResponse_Trail",
+      "CollectionResponse_Node" : {
+        "id" : "CollectionResponse_Node",
         "type" : "object",
         "properties" : {
           "items" : {
             "type" : "array",
             "items" : {
-              "$ref" : "Trail"
+              "$ref" : "Node"
             }
           },
           "nextPageToken" : {
@@ -217,32 +180,32 @@
       }
     },
     "methods" : {
-      "edu.vt.bmac.gpstracker.TrailEndpoint.updateTrail" : {
+      "edu.vt.bmac.gpstracker.NodeEndpoint.updateNode" : {
         "request" : {
-          "$ref" : "Trail"
+          "$ref" : "Node"
         },
         "response" : {
-          "$ref" : "Trail"
+          "$ref" : "Node"
         }
       },
-      "edu.vt.bmac.gpstracker.TrailEndpoint.removeTrail" : {
+      "edu.vt.bmac.gpstracker.NodeEndpoint.removeNode" : {
       },
-      "edu.vt.bmac.gpstracker.TrailEndpoint.listTrail" : {
+      "edu.vt.bmac.gpstracker.NodeEndpoint.listNode" : {
         "response" : {
-          "$ref" : "CollectionResponse_Trail"
+          "$ref" : "CollectionResponse_Node"
         }
       },
-      "edu.vt.bmac.gpstracker.TrailEndpoint.insertTrail" : {
+      "edu.vt.bmac.gpstracker.NodeEndpoint.insertNode" : {
         "request" : {
-          "$ref" : "Trail"
+          "$ref" : "Node"
         },
         "response" : {
-          "$ref" : "Trail"
+          "$ref" : "Node"
         }
       },
-      "edu.vt.bmac.gpstracker.TrailEndpoint.getTrail" : {
+      "edu.vt.bmac.gpstracker.NodeEndpoint.getNode" : {
         "response" : {
-          "$ref" : "Trail"
+          "$ref" : "Node"
         }
       }
     }

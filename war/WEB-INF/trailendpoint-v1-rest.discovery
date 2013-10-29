@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/nkLyqUE270X90a5X85_4b3u9H3w\"",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/3aJuqn-la7rQJSU_vg687PBj-bY\"",
  "discoveryVersion": "v1",
  "id": "trailendpoint:v1",
  "name": "trailendpoint",
@@ -101,6 +101,10 @@
      "type": "number",
      "format": "double"
     },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
     "lat": {
      "type": "number",
      "format": "double"
@@ -171,6 +175,7 @@
     "id": {
      "type": "string",
      "required": true,
+     "format": "int64",
      "location": "path"
     }
    },
@@ -229,6 +234,7 @@
     "id": {
      "type": "string",
      "required": true,
+     "format": "int64",
      "location": "path"
     }
    },

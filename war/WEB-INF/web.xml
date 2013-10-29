@@ -5,7 +5,7 @@
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
   <init-param>
    <param-name>services</param-name>
-   <param-value>edu.vt.bmac.gpstracker.DeviceInfoEndpoint,edu.vt.bmac.gpstracker.FriendEndpoint,edu.vt.bmac.gpstracker.MessageDataEndpoint,edu.vt.bmac.gpstracker.MessageEndpoint,edu.vt.bmac.gpstracker.TrailEndpoint,edu.vt.bmac.gpstracker.TrailsEndpoint</param-value>
+   <param-value>edu.vt.bmac.gpstracker.DeviceInfoEndpoint,edu.vt.bmac.gpstracker.FriendEndpoint,edu.vt.bmac.gpstracker.MessageDataEndpoint,edu.vt.bmac.gpstracker.MessageEndpoint,edu.vt.bmac.gpstracker.NodeEndpoint,edu.vt.bmac.gpstracker.TrailEndpoint</param-value>
   </init-param>
  </servlet>
  <servlet-mapping>

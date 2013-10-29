@@ -1,15 +1,8 @@
 package edu.vt.bmac.gpstracker;
 
-import javax.jdo.annotations.PersistenceCapable;
-import com.google.appengine.api.datastore.Blob;
-import javax.persistence.Basic;
-import java.util.List;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import javax.persistence.Id;
-import javax.persistence.Entity;
 import java.io.Serializable;
-import java.util.Collection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 // -------------------------------------------------------------------------
 /**

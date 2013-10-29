@@ -1,16 +1,14 @@
 package edu.vt.bmac.gpstracker;
 
-import com.google.appengine.api.datastore.Key;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PrimaryKey;
-import javax.persistence.OneToMany;
+import javax.jdo.annotations.Extension;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
+import java.io.Serializable;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.persistence.Basic;
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 // -------------------------------------------------------------------------
 /**
@@ -19,16 +17,37 @@ import java.util.Date;
  *  @author Brian McNamara (bmac), Anthony Allen(ala2555), Chris Pan (chrisp3)
  *  @version Mar 31, 2013
  */
-@PersistenceCapable
-public final class Node implements Serializable
+@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
+//@Entity
+public class Node implements Serializable
 {
+    @Persistent
     private Double lat;
+    @Persistent
     private Double lon;
+    @Persistent
     private Double alt;
-    private float accuracy;
+    @Persistent
+    private Float accuracy;
+    @Persistent
     private Integer satalites;
-    private float speed;
+    @Persistent
+    private Float speed;
+    @Persistent
     private Long time;
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    @PrimaryKey
+    private Long id;
+//    @PrimaryKey
+//    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+//    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+//    private String key;
+//    public void setKey(String id) {
+//        this.key = id;
+//    }
+//    public String getKey() {
+//        return this.key;
+//    }
 /*    @Persistent
     private Trail trail;
     public void setTrail(Trail trail) {
@@ -92,6 +111,14 @@ public final class Node implements Serializable
     public void setTime(Long time)
     {
         this.time = time;
+    }
+    public Long getId()
+    {
+        return id;
+    }
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 
 }
